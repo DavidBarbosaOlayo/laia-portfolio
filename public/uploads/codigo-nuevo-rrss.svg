@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Contenido para redes placeholder">
+  <rect width="1600" height="1000" fill="#f5f3ed"/>
+  <rect x="128" y="92" width="350" height="816" rx="34" fill="#111113"/>
+  <rect x="174" y="158" width="258" height="604" fill="#d7e0df"/>
+  <rect x="548" y="92" width="350" height="816" rx="34" fill="#111113"/>
+  <rect x="594" y="158" width="258" height="604" fill="#a93f2b"/>
+  <rect x="968" y="92" width="350" height="816" rx="34" fill="#111113"/>
+  <rect x="1014" y="158" width="258" height="604" fill="#536d49"/>
+  <rect x="208" y="810" width="190" height="18" fill="#f5f3ed"/>
+  <rect x="628" y="810" width="190" height="18" fill="#f5f3ed"/>
+  <rect x="1048" y="810" width="190" height="18" fill="#f5f3ed"/>
+  <rect x="1380" y="92" width="68" height="816" fill="#d8d760"/>
+</svg>

@@ -1,0 +1,26 @@
+{
+  "name": "laia-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n site,cms -c cyan,magenta \"npm:dev:site\" \"npm:dev:cms\"",
+    "dev:site": "node scripts/astro-cli.mjs dev --host 127.0.0.1 --port 4321",
+    "dev:cms": "node scripts/cms-proxy.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/astro-cli.mjs preview",
+    "astro": "node scripts/astro-cli.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/vue": "^5.0.3",
+    "astro": "^5.1.1",
+    "typescript": "^5.7.2",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "decap-server": "^3.9.0"
+  }
+}

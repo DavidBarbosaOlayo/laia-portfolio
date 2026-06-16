@@ -1,0 +1,185 @@
+---
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <base href="/admin/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Admin | Laia Portfolio</title>
+    <script is:inline>
+      if (window.location.pathname === '/admin') {
+        window.location.replace('/admin/' + window.location.search + window.location.hash);
+      }
+    </script>
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <style is:inline>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Manrope,
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: #090909;
+      }
+
+      .video-field-frame-preview {
+        display: block;
+        width: min(220px, 100%);
+        aspect-ratio: 9 / 16;
+        margin-top: 10px;
+        border: 1px solid rgba(68, 74, 87, 0.18);
+        border-radius: 6px;
+        background: #111;
+        object-fit: cover;
+      }
+
+      .video-field-frame-preview[data-wide='true'] {
+        aspect-ratio: 16 / 9;
+      }
+    </style>
+    <script is:inline src="https://unpkg.com/decap-cms@^3.6.0/dist/decap-cms.js"></script>
+    <script is:inline>
+      (() => {
+        const videoPattern = /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
+        const previewClass = 'video-field-frame-preview';
+        let scheduled = false;
+
+        const normalizeVideoUrl = (value) => {
+          if (!value || !videoPattern.test(value.trim())) {
+            return '';
+          }
+
+          const trimmed = value.trim();
+
+          if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('/')) {
+            return trimmed;
+          }
+
+          if (trimmed.startsWith('public/')) {
+            return `/${trimmed.slice('public/'.length)}`;
+          }
+
+          return `/${trimmed.replace(/^\/+/, '')}`;
+        };
+
+        const findPreviewHost = (element) => {
+          return (
+            element.closest('[class*="ControlContainer"]') ||
+            element.closest('[class*="Field"]') ||
+            element.parentElement
+          );
+        };
+
+        const setPosterFromFrame = (video) => {
+          if (!video.videoWidth || !video.videoHeight) {
+            return;
+          }
+
+          if (video.videoWidth > video.videoHeight) {
+            video.dataset.wide = 'true';
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          canvas.getContext('2d')?.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          try {
+            video.poster = canvas.toDataURL('image/jpeg', 0.76);
+          } catch {
+            // Remote videos may disallow canvas capture; the seeked frame remains visible.
+          }
+        };
+
+        const prepareVideoFrame = (video) => {
+          const captureFrame = () => {
+            if (!Number.isFinite(video.duration) || video.duration <= 0) {
+              return;
+            }
+
+            const targetFrame = Math.min(Math.max(video.duration * 0.12, 0.35), 2);
+            video.addEventListener('seeked', () => setPosterFromFrame(video), { once: true });
+            video.currentTime = targetFrame;
+          };
+
+          video.addEventListener('loadedmetadata', captureFrame, { once: true });
+        };
+
+        const addPreview = (element, rawValue) => {
+          const src = normalizeVideoUrl(rawValue);
+          const host = findPreviewHost(element);
+
+          if (!src || !host) {
+            return;
+          }
+
+          const current = host.querySelector(`video.${previewClass}`);
+
+          if (current?.dataset.src === src) {
+            return;
+          }
+
+          current?.remove();
+
+          const preview = document.createElement('video');
+          preview.className = previewClass;
+          preview.dataset.src = src;
+          preview.src = src;
+          preview.muted = true;
+          preview.playsInline = true;
+          preview.preload = 'metadata';
+          preview.controls = true;
+          prepareVideoFrame(preview);
+          host.appendChild(preview);
+        };
+
+        const enhanceVideoFields = () => {
+          document.querySelectorAll('input').forEach((input) => {
+            addPreview(input, input.value);
+          });
+
+          document.querySelectorAll('a[href]').forEach((link) => {
+            addPreview(link, link.getAttribute('href') || '');
+          });
+        };
+
+        const scheduleEnhance = () => {
+          if (scheduled) {
+            return;
+          }
+
+          scheduled = true;
+          window.setTimeout(() => {
+            scheduled = false;
+            enhanceVideoFields();
+          }, 120);
+        };
+
+        window.addEventListener('input', scheduleEnhance, true);
+        window.addEventListener('change', scheduleEnhance, true);
+        window.addEventListener('hashchange', scheduleEnhance);
+
+        new MutationObserver(scheduleEnhance).observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+
+        scheduleEnhance();
+      })();
+    </script>
+  </body>
+</html>

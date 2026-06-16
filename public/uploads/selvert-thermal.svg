@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Selvert Thermal placeholder">
+  <rect width="1600" height="1000" fill="#d7e0df"/>
+  <rect x="106" y="100" width="1388" height="800" fill="#f5f3ed"/>
+  <rect x="248" y="220" width="276" height="560" fill="#111113"/>
+  <rect x="298" y="284" width="176" height="430" fill="#d8d760"/>
+  <rect x="620" y="220" width="276" height="560" fill="#536d49"/>
+  <rect x="670" y="284" width="176" height="430" fill="#f5f3ed"/>
+  <rect x="992" y="220" width="276" height="560" fill="#a93f2b"/>
+  <rect x="1042" y="284" width="176" height="430" fill="#111113"/>
+  <rect x="248" y="824" width="1020" height="10" fill="#111113"/>
+  <circle cx="1358" cy="260" r="52" fill="#111113"/>
+  <circle cx="1358" cy="410" r="52" fill="#536d49"/>
+  <circle cx="1358" cy="560" r="52" fill="#a93f2b"/>
+</svg>

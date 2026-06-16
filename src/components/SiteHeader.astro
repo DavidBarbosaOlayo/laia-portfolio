@@ -1,0 +1,83 @@
+---
+interface Props {
+  name?: string;
+  role?: string;
+  navWorkLabel?: string;
+  navProfileLabel?: string;
+  navContactLabel?: string;
+  headerStatusLabel?: string;
+}
+
+const {
+  name = 'Laia Serrano Valdivia',
+  role = 'Video editor',
+  navWorkLabel = 'Trabajos',
+  navProfileLabel = 'Perfil',
+  navContactLabel = 'Contacto',
+  headerStatusLabel = 'REC · Disponible',
+} = Astro.props;
+---
+
+<header class="site-header" aria-label="Navegacion principal">
+  <a class="brand" href="/" aria-label="Inicio">
+    {name}
+    <small>{role}</small>
+  </a>
+  <span class="header-status" aria-hidden="true">
+    <i class="rec-dot"></i>
+    {headerStatusLabel}
+  </span>
+  <div class="header-actions">
+    <nav class="nav-links">
+      <a href="/#work">{navWorkLabel}</a>
+      <a href="/#profile">{navProfileLabel}</a>
+      <a href="/#contact">{navContactLabel}</a>
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar a tema claro">
+      <span class="theme-toggle-icon" aria-hidden="true">
+        <svg class="theme-toggle-sun" viewBox="0 0 24 24" focusable="false">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg class="theme-toggle-moon" viewBox="0 0 24 24" focusable="false">
+          <path d="M20.99 14.7A8.7 8.7 0 0 1 9.3 3.01a9 9 0 1 0 11.69 11.69Z"></path>
+        </svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const themeButtons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+
+  const applyTheme = (theme: 'dark' | 'light') => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    window.localStorage.setItem('theme', theme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      theme === 'light' ? '#f4f1eb' : '#070708',
+    );
+
+    const nextTheme = theme === 'dark' ? 'claro' : 'oscuro';
+    themeButtons.forEach((button) => {
+      button.setAttribute('aria-label', `Cambiar a tema ${nextTheme}`);
+    });
+  };
+
+  const savedTheme = window.localStorage.getItem('theme');
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+  themeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+    });
+  });
+</script>

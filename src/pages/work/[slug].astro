@@ -1,0 +1,243 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).filter((project) => project.data.published);
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const profile = await getEntry('profile', 'main');
+
+if (!profile) {
+  throw new Error('Missing profile content: src/content/profile/main.md');
+}
+
+const mediaItems = [
+  ...(project.data.videoUrl ? [{ title: project.data.title, videoUrl: project.data.videoUrl }] : []),
+  ...project.data.videoGallery,
+];
+const primaryMedia = mediaItems[0];
+const secondaryMedia = mediaItems.slice(1);
+
+function getEmbedUrl(url?: string) {
+  if (!url) {
+    return undefined;
+  }
+
+  if (url.includes('player.vimeo.com') || url.includes('youtube.com/embed')) {
+    return withAutoplay(url);
+  }
+
+  const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
+  if (youtubeMatch) {
+    return withAutoplay(`https://www.youtube.com/embed/${youtubeMatch[1]}`);
+  }
+
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) {
+    return withAutoplay(`https://player.vimeo.com/video/${vimeoMatch[1]}`);
+  }
+
+  return undefined;
+}
+
+function withAutoplay(url: string) {
+  return `${url}${url.includes('?') ? '&' : '?'}autoplay=1&muted=1`;
+}
+
+const embedUrl = getEmbedUrl(primaryMedia?.videoUrl);
+---
+
+<BaseLayout title={`${project.data.title} | ${profile.data.name}`} description={project.data.summary}>
+  <SiteHeader
+    name={profile.data.name}
+    role={profile.data.role}
+    navWorkLabel={profile.data.navWorkLabel}
+    navProfileLabel={profile.data.navProfileLabel}
+    navContactLabel={profile.data.navContactLabel}
+    headerStatusLabel={profile.data.headerStatusLabel}
+  />
+  <main class="project-page">
+    <a class="back-link" href="/#work">{profile.data.projectBackLabel}</a>
+
+    <section class="project-hero">
+      <div class="project-title">
+        <p class="eyebrow">{project.data.category} / {project.data.year}</p>
+        <h1>{project.data.title}</h1>
+        <p>{project.data.summary}</p>
+      </div>
+      <dl class="project-details">
+        <div>
+          <dt>{profile.data.projectClientLabel}</dt>
+          <dd>{project.data.client}</dd>
+        </div>
+        <div>
+          <dt>{profile.data.projectRoleLabel}</dt>
+          <dd>{project.data.role}</dd>
+        </div>
+        <div>
+          <dt>{profile.data.projectFormatLabel}</dt>
+          <dd>{project.data.format}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="project-viewer" aria-label="Project media">
+      {
+        primaryMedia?.videoUrl ? (
+          embedUrl ? (
+            <iframe
+              src={embedUrl}
+              title={primaryMedia.title || project.data.title}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            />
+          ) : (
+            <video controls playsinline autoplay preload="metadata" src={primaryMedia.videoUrl} />
+          )
+        ) : project.data.thumbnail ? (
+          <img src={project.data.thumbnail} alt="" />
+        ) : (
+          <div class="project-viewer-fallback">{profile.data.projectNoMediaLabel}</div>
+        )
+      }
+    </section>
+
+    {
+      secondaryMedia.length > 0 && (
+        <section class="project-gallery" aria-labelledby="project-gallery-heading">
+          <div class="section-heading">
+            <p class="eyebrow">{profile.data.projectGalleryEyebrow}</p>
+            <h2 id="project-gallery-heading">{profile.data.projectGalleryTitle}</h2>
+          </div>
+          <div class="project-gallery-grid">
+            {secondaryMedia.map((media, index) => {
+              const itemEmbedUrl = getEmbedUrl(media.videoUrl);
+              const title = media.title || `${project.data.title} ${index + 2}`;
+
+              return (
+                <article class="project-gallery-item">
+                  <div class="project-gallery-media">
+                    {itemEmbedUrl ? (
+                      <iframe
+                        src={itemEmbedUrl}
+                        title={title}
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                      />
+                    ) : (
+                      <video
+                        controls
+                        playsinline
+                        preload="metadata"
+                        src={media.videoUrl}
+                        data-video-thumbnail-frame
+                      />
+                    )}
+                  </div>
+                  <h3>{title}</h3>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )
+    }
+
+    <section class="project-body">
+      <article>
+        <Content />
+      </article>
+      <aside>
+        {
+          project.data.services.length > 0 && (
+            <div>
+              <h2>{profile.data.projectServicesLabel}</h2>
+              <ul>
+                {project.data.services.map((service) => <li>{service}</li>)}
+              </ul>
+            </div>
+          )
+        }
+        {
+          project.data.credits.length > 0 && (
+            <div>
+              <h2>{profile.data.projectCreditsLabel}</h2>
+              <ul>
+                {project.data.credits.map((credit) => <li>{credit}</li>)}
+              </ul>
+            </div>
+          )
+        }
+      </aside>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  // Browsers block unmuted autoplay on fresh navigations; try with sound
+  // first and fall back to muted playback. First click anywhere restores audio.
+  const video = document.querySelector<HTMLVideoElement>('.project-viewer video');
+
+  if (video) {
+    video.play().catch(() => {
+      video.muted = true;
+      video.play().catch(() => {});
+
+      const unmute = () => {
+        video.muted = false;
+      };
+      document.addEventListener('pointerdown', unmute, { once: true });
+    });
+  }
+
+  const thumbnailVideos = document.querySelectorAll<HTMLVideoElement>('video[data-video-thumbnail-frame]');
+
+  thumbnailVideos.forEach((thumbnailVideo) => {
+    const setPosterFromCurrentFrame = () => {
+      const width = thumbnailVideo.videoWidth;
+      const height = thumbnailVideo.videoHeight;
+
+      if (!width || !height) {
+        return;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d')?.drawImage(thumbnailVideo, 0, 0, width, height);
+
+      try {
+        thumbnailVideo.poster = canvas.toDataURL('image/jpeg', 0.76);
+      } catch {
+        // If the video is remote and blocks canvas access, keeping the seeked
+        // frame is still better than falling back to the project mock image.
+      }
+    };
+
+    const captureFrame = () => {
+      if (thumbnailVideo.dataset.thumbnailReady === 'true') {
+        return;
+      }
+
+      if (!Number.isFinite(thumbnailVideo.duration) || thumbnailVideo.duration <= 0) {
+        return;
+      }
+
+      const targetFrame = Math.min(Math.max(thumbnailVideo.duration * 0.12, 0.35), 2);
+      thumbnailVideo.dataset.thumbnailReady = 'true';
+      thumbnailVideo.addEventListener('seeked', setPosterFromCurrentFrame, { once: true });
+      thumbnailVideo.currentTime = targetFrame;
+    };
+
+    thumbnailVideo.addEventListener('loadedmetadata', captureFrame, { once: true });
+  });
+</script>

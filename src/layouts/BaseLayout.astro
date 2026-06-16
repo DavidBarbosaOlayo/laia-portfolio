@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Laia Serrano Valdivia | Video editor',
+  description = 'Portfolio de Laia Serrano Valdivia, creadora y editora de video para redes sociales.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#070708" />
+    <script is:inline>
+      (() => {
+        const savedTheme = window.localStorage.getItem('theme');
+        const theme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute(
+          'content',
+          theme === 'light' ? '#f4f1eb' : '#070708',
+        );
+      })();
+    </script>
+    <script is:inline>
+      (() => {
+        const hash = window.location.hash || '';
+        if (!/(invite_token|confirmation_token|recovery_token|email_change_token)=/.test(hash)) {
+          return;
+        }
+        const widget = document.createElement('script');
+        widget.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+        widget.onload = () => {
+          if (!window.netlifyIdentity) return;
+          window.netlifyIdentity.on('init', (user) => {
+            if (!user) {
+              window.netlifyIdentity.on('login', () => {
+                document.location.href = '/admin/';
+              });
+            }
+          });
+        };
+        document.head.appendChild(widget);
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <div class="film-grain" aria-hidden="true"></div>
+  </body>
+</html>

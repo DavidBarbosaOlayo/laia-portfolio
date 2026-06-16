@@ -1,0 +1,117 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  featured?: CollectionEntry<'projects'>;
+  profile: CollectionEntry<'profile'>['data'];
+}
+
+const { featured, profile } = Astro.props;
+
+function isDirectVideo(url?: string) {
+  if (!url || /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url)) {
+    return false;
+  }
+
+  return /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(url) || url.startsWith('/uploads/');
+}
+
+const featuredHasDirectVideo = Boolean(featured && isDirectVideo(featured.data.videoUrl));
+const [firstName, ...restName] = profile.name.split(' ');
+const lastName = restName.join(' ');
+const heroStats = profile.heroStats.length > 0
+  ? profile.heroStats
+  : [
+      { value: '+2 años', label: 'contenido social' },
+      { value: 'Guion', label: 'ritmo narrativo' },
+      { value: 'VFX', label: 'en formación' },
+    ];
+---
+
+<section class="hero-shell">
+  <div class="hero-copy" aria-labelledby="hero-heading">
+    <p class="eyebrow">{profile.heroEyebrow}</p>
+    <h1 id="hero-heading">
+      {firstName}
+      {lastName && <em>{lastName}</em>}
+    </h1>
+    <p class="hero-role">
+      <strong>{profile.role}.</strong>
+      {profile.tagline}
+    </p>
+    <div class="hero-stats" aria-label="Perfil resumido">
+      {heroStats.map((stat) => (
+        <span>
+          <strong>{stat.value}</strong>
+          <small>{stat.label}</small>
+        </span>
+      ))}
+    </div>
+    <div class="hero-actions" aria-label="Acciones principales">
+      <a class="button button-primary" href="#work">{profile.primaryCtaLabel}</a>
+      <a class="button button-secondary" href="#contact">{profile.secondaryCtaLabel}</a>
+    </div>
+  </div>
+
+  <div class="hero-monitor" aria-label="Trabajo destacado">
+    <div class="monitor-frame">
+      <div class="monitor-topbar">
+        <span class="rec-label">
+          <i class="rec-dot"></i>
+          {featuredHasDirectVideo ? profile.monitorStatusVideo : profile.monitorStatusImage}
+        </span>
+        <span data-timecode>00:00:00:00</span>
+      </div>
+
+      {
+        featured && (
+          <a class="monitor-stage" href={`/work/${featured.slug}/`} aria-label={`Abrir ${featured.data.title}`}>
+            {featuredHasDirectVideo ? (
+              <video src={featured.data.videoUrl} autoplay loop muted playsinline preload="auto" />
+            ) : featured.data.thumbnail ? (
+              <img src={featured.data.thumbnail} alt="" loading="eager" />
+            ) : (
+              <span class="monitor-fallback">{profile.monitorFallback}</span>
+            )}
+            <span class="monitor-caption">
+              <strong>{featured.data.title}</strong>
+              <span>{featured.data.client} · {featured.data.format}</span>
+            </span>
+          </a>
+        )
+      }
+
+      <div class="monitor-bottombar">
+        <span>{profile.monitorBottomLeft}</span>
+        <span class="monitor-waveform" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </span>
+        <span>{profile.monitorFpsLabel}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const timecode = document.querySelector('[data-timecode]');
+  const video = document.querySelector<HTMLVideoElement>('.monitor-stage video');
+
+  if (timecode) {
+    const start = performance.now();
+
+    const tick = () => {
+      const elapsed = video && !video.paused ? video.currentTime : (performance.now() - start) / 1000;
+      const h = Math.floor(elapsed / 3600);
+      const m = Math.floor((elapsed % 3600) / 60);
+      const s = Math.floor(elapsed % 60);
+      const frameRate = Number(document.querySelector<HTMLElement>('.home-hero')?.dataset.monitorFrameRate || '60');
+      const f = Math.floor((elapsed % 1) * frameRate);
+      timecode.textContent = [h, m, s, f].map((n) => String(n).padStart(2, '0')).join(':');
+      requestAnimationFrame(tick);
+    };
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      requestAnimationFrame(tick);
+    }
+  }
+</script>

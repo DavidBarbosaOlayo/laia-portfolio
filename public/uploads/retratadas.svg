@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Retratadas placeholder">
+  <rect width="1600" height="1000" fill="#f5f3ed"/>
+  <rect x="96" y="112" width="1408" height="776" fill="#171717"/>
+  <rect x="156" y="172" width="598" height="520" fill="#cfd7d8"/>
+  <rect x="846" y="172" width="502" height="520" fill="#e8e3d5"/>
+  <circle cx="455" cy="386" r="102" fill="#a93f2b"/>
+  <rect x="302" y="548" width="306" height="64" fill="#f5f3ed"/>
+  <circle cx="1096" cy="386" r="102" fill="#536d49"/>
+  <rect x="944" y="548" width="306" height="64" fill="#111113"/>
+  <rect x="156" y="744" width="1192" height="8" fill="#f5f3ed"/>
+  <rect x="156" y="786" width="372" height="28" fill="#d8d760"/>
+  <rect x="566" y="786" width="782" height="28" fill="#5a6568"/>
+</svg>

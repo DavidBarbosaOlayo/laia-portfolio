@@ -1,0 +1,122 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import WorkGrid from '../components/WorkGrid.vue';
+
+const profile = await getEntry('profile', 'main');
+
+if (!profile) {
+  throw new Error('Missing profile content: src/content/profile/main.md');
+}
+
+const projects = (await getCollection('projects'))
+  .filter((project) => project.data.published)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const workSections = (await getCollection('workSections'))
+  .filter((section) => section.data.published)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((section) => section.data);
+
+const featured = projects.find((project) => project.data.featured) ?? projects[0];
+
+const workItems = projects.map((project) => ({
+  ...project.data,
+  url: `/work/${project.slug}/`,
+}));
+
+const marqueeItems = profile.data.marqueeItems.length > 0 ? profile.data.marqueeItems : profile.data.tools;
+
+const marqueeLoopItems = Array.from({ length: 4 }, () => marqueeItems).flat();
+---
+
+<BaseLayout
+  title={`${profile.data.name} | ${profile.data.role}`}
+  description={profile.data.shortBio}
+>
+  <SiteHeader
+    name={profile.data.name}
+    role={profile.data.role}
+    navWorkLabel={profile.data.navWorkLabel}
+    navProfileLabel={profile.data.navProfileLabel}
+    navContactLabel={profile.data.navContactLabel}
+    headerStatusLabel={profile.data.headerStatusLabel}
+  />
+  <main>
+    <section class="home-hero" data-monitor-frame-rate={profile.data.monitorFrameRate}>
+      <Hero featured={featured} profile={profile.data} />
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            {marqueeLoopItems.map((item) => <span>{item}</span>)}
+          </div>
+          <div class="marquee-group">
+            {marqueeLoopItems.map((item) => <span>{item}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <WorkGrid
+      projects={workItems}
+      workSections={workSections}
+      copy={{
+        eyebrow: profile.data.workEyebrow,
+        title: profile.data.workTitle,
+        blockLabel: profile.data.workBlockLabel,
+        verticalLabel: profile.data.workVerticalLabel,
+        horizontalLabel: profile.data.workHorizontalLabel,
+      }}
+      client:load
+    />
+
+    <section class="about-section" aria-label="Perfil">
+      <span id="profile" class="scroll-anchor" aria-hidden="true"></span>
+      <p class="eyebrow">{profile.data.aboutEyebrow}</p>
+      <p class="about-bio" set:html={profile.data.aboutBio}></p>
+      <div class="about-grid">
+        {profile.data.aboutCards.map((card) => (
+          <article>
+            <span>{card.number}</span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="timeline-section" aria-labelledby="timeline-heading">
+      <div class="section-heading">
+        <p class="eyebrow">{profile.data.timelineEyebrow}</p>
+        <h2 id="timeline-heading">{profile.data.timelineTitle}</h2>
+      </div>
+      <div class="timeline-list">
+        {profile.data.timelineItems.map((item) => (
+          <article>
+            <span>{item.date}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="contact-section" aria-labelledby="contact-heading">
+      <span id="contact" class="scroll-anchor" aria-hidden="true"></span>
+      <p class="eyebrow">{profile.data.contactEyebrow}</p>
+      <h2 id="contact-heading">{profile.data.availability}</h2>
+      <a class="contact-mail" href={`mailto:${profile.data.email}`}>{profile.data.email}</a>
+      <div class="contact-links">
+        {profile.data.linkedinUrl && <a href={profile.data.linkedinUrl}>{profile.data.linkedinLabel}</a>}
+        <a href={`mailto:${profile.data.email}`}>{profile.data.emailCtaLabel}</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <span>© 2026 {profile.data.name}</span>
+    <span>{profile.data.location} · {profile.data.footerNote}</span>
+  </footer>
+</BaseLayout>
