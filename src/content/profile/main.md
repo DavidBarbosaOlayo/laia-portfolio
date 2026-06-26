@@ -23,8 +23,8 @@ heroEyebrow: Contenido digital · Edición para RRSS · 9:16 / 16:9
 heroStats:
   - value: +3 años
     label: editando vídeos para redes
-  - value: Guion
-    label: .
+  - value: Formatos
+    label: vertical y podcast
   - value: VFX
     label: en formación
 primaryCtaLabel: Ver trabajos
@@ -32,19 +32,19 @@ secondaryCtaLabel: Contacto
 monitorStatusVideo: REC
 monitorStatusImage: FRAME
 monitorFallback: Selected work
-monitorBottomLeft: Vertical-first
+monitorBottomLeft: PODCAST
 monitorFpsLabel: 60 fps
 monitorFrameRate: 60
 marqueeItems:
   - Edición de vídeo
   - Premiere
   - DaVinci Resolve
-  - Adobe
+  - After Effects
   - VFX
-  - Ritmo narrativo
-  - Vertical-first
+  - Illustrator
+  - Podcast
   - Reels / TikToks
-  - Guion
+  - Photoshop
   - Postproducción
 workEyebrow: Trabajos seleccionados
 workTitle: El trabajo habla en movimiento.
@@ -53,7 +53,7 @@ workVerticalLabel: Reels verticales
 workHorizontalLabel: Video horizontal
 aboutEyebrow: Perfil
 aboutBio: "Formada en cine digital y guion, edita contenido que <em>sostiene la
-  atención</em>: entrevistas, videoblogs y piezas de marca pensadas para
+  atención</em>: entrevistas, podcast y piezas de marca pensadas para
   plataformas."
 aboutCards:
   - number: "01"
@@ -62,7 +62,7 @@ aboutCards:
       pieza.
   - number: "02"
     title: Contenido social
-    text: Más de dos años editando contenido para redes sociales.
+    text: Más de tres años editando contenido para redes sociales.
   - number: "03"
     title: Mirada audiovisual
     text: Base en cine digital, cámara y postproducción, ahora ampliada hacia VFX.
