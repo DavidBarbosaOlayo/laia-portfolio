@@ -3,6 +3,6 @@ import sitemap from '@astrojs/sitemap';
 import vue from '@astrojs/vue';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://laia-portfolio.netlify.app',
   integrations: [vue(), sitemap()],
 });

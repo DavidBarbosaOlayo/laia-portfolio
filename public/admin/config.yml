@@ -8,16 +8,6 @@ local_backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-media_library:
-  name: cloudinary
-  output_filename_only: false
-  config:
-    cloud_name: dzhpzwfkq
-    api_key: "758996655768256"
-    default_transformations:
-      - - fetch_format: auto
-          quality: auto
-
 slug:
   encoding: "ascii"
   clean_accents: true
@@ -340,11 +330,13 @@ collections:
         widget: "image"
         required: false
         choose_url: true
+        hint: "Puedes subir una imagen al proyecto o pegar una URL externa."
       - label: "Video"
         name: "videoUrl"
         widget: "file"
         required: false
         choose_url: true
+        hint: "Puedes subir un video al proyecto o pegar una URL externa de Cloudinary, Vimeo, Mux o YouTube."
       - label: "Videos adicionales"
         name: "videoGallery"
         widget: "list"
@@ -359,6 +351,7 @@ collections:
             name: "videoUrl"
             widget: "file"
             choose_url: true
+            hint: "Puedes subir un video al proyecto o pegar una URL externa."
       - label: "Servicios"
         name: "services"
         widget: "list"
