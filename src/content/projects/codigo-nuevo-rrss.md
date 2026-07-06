@@ -29,6 +29,4 @@ credits:
   - "Edición: Laia Serrano"
 workSectionOrder: 1
 ---
-
-Trabajo recurrente con formatos de consumo rápido: selección de momentos, estructura, subtítulos visuales, ritmo y entregas adaptadas a cada canal.
-
+Publicidad para ARPÍAS. En este vídeo mostramos los servicios que ofrece la marca.
