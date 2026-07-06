@@ -5,10 +5,10 @@ order: 12
 workPlacement: vertical
 workSection: codigo-nuevo
 title: Publicidad The MadRoom
-client: Código Nuevo
+client: códigonuevo
 year: 2025
-category: RRSS
-format: Reel vertical / 9:16
+category: Marca
+format: Reel | 9:16
 summary: The MadRoom Madrid nos muestra el proceso de uno de sus tratamientos capilares.
 thumbnail: ""
 workSectionSummary: Edición de entrevistas, podcasts y clips sociales con ritmo
