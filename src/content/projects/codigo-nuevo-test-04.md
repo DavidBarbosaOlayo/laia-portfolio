@@ -5,10 +5,10 @@ order: 11
 workPlacement: vertical
 workSection: codigo-nuevo
 title: Calavento - FMK
-client: Código Nuevo
+client: códigonuevo
 year: 2025
 category: RRSS
-format: Reel vertical / 9:16
+format: Reel | 9:16
 summary: En este vídeo Calavento hace una versión musical de "fuck, merry,
   killl" en la que nos cuenta qué artistas versionarían, con cuales comprondrían
   o, directamente, eliminarían.
