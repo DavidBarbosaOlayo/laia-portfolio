@@ -13,7 +13,7 @@ shortBio: >-
   planifico y grabo contenido, participando en todo el proceso creativo.
 
 
-  Mi formación en marketing me ayuda a entender mejor a las audiencias y a crear contenido con intención, pero donde realmente está mi pasión es en el mundo audiovisual y en contar historias a través de las imágenes.
+  Mi formación en marketing me ayuda a entender mejor a las audiencias y a crear contenido con intención, pero donde realmente está mi pasión es en el mundo audiovisual.
 availability: Disponible para edición, adaptación de piezas y contenido digital.
 navWorkLabel: Trabajos
 navProfileLabel: Perfil
@@ -49,23 +49,23 @@ marqueeItems:
 workEyebrow: Trabajos seleccionados
 workTitle: El trabajo habla en movimiento.
 workBlockLabel: Bloque de trabajo
-workVerticalLabel: Reels verticales
-workHorizontalLabel: Video horizontal
+workVerticalLabel: Verticales
+workHorizontalLabel: Video reel de podcast
 aboutEyebrow: Perfil
 aboutBio: "Formada en cine digital y guion, edita contenido que <em>sostiene la
   atención</em>: entrevistas, podcast y piezas de marca pensadas para
   plataformas."
 aboutCards:
   - number: "01"
-    title: Edición narrativa
-    text: Ordenar conversación, intención y emoción para que cada corte empuje la
-      pieza.
+    title: Edición
+    text: Vídeos dinámicos con ritmo, impacto y una narrativa cuidada.
   - number: "02"
-    title: Contenido social
-    text: Más de tres años editando contenido para redes sociales.
+    title: Estrategia
+    text: Contenido optimizado para captar la atención y mejorar la retención.
   - number: "03"
-    title: Mirada audiovisual
-    text: Base en cine digital, cámara y postproducción, ahora ampliada hacia VFX.
+    title: Formación constante
+    text: "\tAprendizaje continuo en edición audiovisual, tendencias y herramientas
+      creativas."
 timelineEyebrow: Trayectoria
 timelineTitle: Experiencia reciente.
 timelineItems:
@@ -103,5 +103,4 @@ tools:
   - After Effects
   - Illustrator y Photoshop
 ---
-
-Laia trabaja desde el ritmo y la intención de cada pieza: ordenar material, encontrar una mirada y convertirlo en contenido claro para plataformas digitales.
+.
