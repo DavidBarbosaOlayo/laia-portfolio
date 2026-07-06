@@ -15,7 +15,7 @@ summary: En este vídeo Calavento hace una versión musical de "fuck, merry,
 thumbnail: ""
 workSectionSummary: Edición de entrevistas, podcasts y clips sociales con ritmo
   de consumo digital, piezas largas y derivados para redes.
-role: Editora de vídeo para RRSS
+role: Editora
 videoUrl: https://res.cloudinary.com/dzhpzwfkq/video/upload/q_auto/v1781618309/a6tlkevub0bomkuiwqqx.mp4
 videoGallery: []
 services: []
