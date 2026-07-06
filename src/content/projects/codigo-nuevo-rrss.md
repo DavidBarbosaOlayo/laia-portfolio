@@ -5,10 +5,10 @@ order: 4
 workPlacement: vertical
 workSection: codigo-nuevo
 title: Publicidad ARPÍAS
-client: Código Nuevo
-year: 2023
+client: códigonuevo
+year: 2024
 category: Marca
-format: Reel
+format: Reel | 9:16
 summary: Publicidad para ARPÍAS. En este vídeo mostramos los servicios que
   ofrece la marca.
 thumbnail: /uploads/codigo-nuevo-rrss.svg
