@@ -5,10 +5,10 @@ order: 8
 workPlacement: vertical
 workSection: codigo-nuevo
 title: Entrevista C. Tangana y Yerai Cortés
-client: Código Nuevo
-year: 2025
-category: RRSS
-format: Reel vertical / 9:16
+client: códigonuevo
+year: 2024
+category: Entrevistas
+format: Reel | 9:16
 summary: C. Tangana y a Yerai Cortés desvelan su Spotify wrapped.
 thumbnail: ""
 workSectionSummary: Edición de entrevistas, podcasts y clips sociales con ritmo
