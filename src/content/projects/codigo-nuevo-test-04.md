@@ -4,28 +4,24 @@ featured: false
 order: 11
 workPlacement: vertical
 workSection: codigo-nuevo
-workSectionOrder: 1
-workSectionSummary: Edición de entrevistas, podcasts y clips sociales con ritmo
-  de consumo digital, piezas largas y derivados para redes.
-title: Clip Código Nuevo 04
+title: Calavento - FMK
 client: Código Nuevo
 year: 2025
-role: Editora de vídeo para RRSS
 category: RRSS
 format: Reel vertical / 9:16
-summary: Pieza de prueba para visualizar el bloque de Código Nuevo con más
-  contenido en el carrusel.
+summary: En este vídeo Calavento hace una versión musical de "fuck, merry,
+  killl" en la que nos cuenta qué artistas versionarían, con cuales comprondrían
+  o, directamente, eliminarían.
 thumbnail: ""
+workSectionSummary: Edición de entrevistas, podcasts y clips sociales con ritmo
+  de consumo digital, piezas largas y derivados para redes.
+role: Editora de vídeo para RRSS
 videoUrl: https://res.cloudinary.com/dzhpzwfkq/video/upload/q_auto/v1781618309/a6tlkevub0bomkuiwqqx.mp4
 videoGallery: []
-services:
-  - Short-form
-  - Retención
-  - Adaptación a redes
+services: []
 credits:
   - "Cliente: Código Nuevo"
   - "Edición: Laia Serrano"
+workSectionOrder: 1
 ---
-
-Pieza de prueba para rellenar visualmente el bloque de trabajo.
-
+En este vídeo Calavento hace una versión musical de "fuck, merry, killl" en la que nos cuenta qué artistas versionarían, con cuales comprondrían o, directamente, eliminarían.
