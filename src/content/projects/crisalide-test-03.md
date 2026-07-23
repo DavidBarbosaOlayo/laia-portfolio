@@ -26,4 +26,4 @@ credits:
   - "Edición: Laia Serrano"
 workSectionOrder: 2
 ---
-Vídeo reel de los podcasts que he editado para códigonuevo: Retratadas y Mucho Texto.
+Vídeoreel de los podcasts que he editado para códigonuevo: Retratadas y Mucho Texto.
