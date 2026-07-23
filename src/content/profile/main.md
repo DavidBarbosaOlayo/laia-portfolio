@@ -32,8 +32,8 @@ secondaryCtaLabel: Contacto
 monitorStatusVideo: REC
 monitorStatusImage: FRAME
 monitorFallback: Selected work
-monitorBottomLeft: PODCAST
-monitorFpsLabel: 60 fps
+monitorBottomLeft: REEL
+monitorFpsLabel: 24 fps
 monitorFrameRate: 60
 marqueeItems:
   - Edición de vídeo
@@ -52,7 +52,7 @@ workBlockLabel: Bloque de trabajo
 workVerticalLabel: Verticales
 workHorizontalLabel: Video reel de podcast
 aboutEyebrow: Perfil
-aboutBio: "Formada en cine digital y guion, edita contenido que <em>sostiene la
+aboutBio: "Formada en cine digital y guion. Creo contenido que <em>sostiene la
   atención</em>: entrevistas, podcast y piezas de marca pensadas para
   plataformas."
 aboutCards:
