@@ -1,21 +1,20 @@
 ---
 published: true
 featured: false
-order: 25
+order: 5
 workPlacement: vertical
-workSection: marca
-workSectionOrder: 4
-workSectionSummary: Contenido visual de marca, piezas para marketing digital y
-  adaptación de materiales a calendarios de redes.
+workSection: codigo-nuevo
 title: Reel Marca 03
-client: Selvert Thermal
+client: códigonuevo
 year: 2025
-role: Editora de vídeo y gráfica para RRSS
 category: Marca
 format: Reel vertical / 9:16
-summary: Pieza de prueba para visualizar el bloque de Marca con más contenido
-  en el carrusel.
+summary: Pieza de prueba para visualizar el bloque de Marca con más contenido en
+  el carrusel.
 thumbnail: ""
+workSectionSummary: Contenido visual de marca, piezas para marketing digital y
+  adaptación de materiales a calendarios de redes.
+role: Editora de vídeo y gráfica para RRSS
 videoUrl: https://res.cloudinary.com/dzhpzwfkq/video/upload/q_auto/v1781618351/wpafjur893ckbwpw0sr7.mp4
 videoGallery: []
 services:
@@ -25,7 +24,6 @@ services:
 credits:
   - "Cliente: Selvert Thermal"
   - "Edición: Laia Serrano"
+workSectionOrder: 4
 ---
-
-Pieza de prueba para rellenar visualmente el bloque de trabajo.
-
+En este vídeo conocemos un poco mejor al grupo de música Merina Gris.
