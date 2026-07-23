@@ -3,19 +3,17 @@ published: true
 featured: false
 order: 6
 workPlacement: vertical
-workSection: ficha-tecnica
-workSectionOrder: 3
-workSectionSummary: Reels verticales editados para mantener atención, claridad
-  visual y ritmo rápido en redes.
-title: "Ficha Técnica: La Plata"
-client: Ficha Técnica
+workSection: codigo-nuevo
+title: Ficha Técnica - La Plata
+client: códigonuevo
 year: 2026
-role: Editora de vídeo para RRSS
 category: RRSS
 format: Reel vertical / 9:16
-summary: Pieza vertical de Ficha Técnica editada para consumo rápido en redes
-  sociales.
+summary: Pieza vertical de Ficha Técnica editada para consumo rápido en redes sociales.
 thumbnail: ""
+workSectionSummary: Reels verticales editados para mantener atención, claridad
+  visual y ritmo rápido en redes.
+role: Editora
 videoUrl: https://res.cloudinary.com/dzhpzwfkq/video/upload/q_auto/v1781618359/cgl2rmbjfacd6h99hgrq.mp4
 videoGallery:
   - title: Reel extra 01
@@ -31,7 +29,6 @@ services:
 credits:
   - "Proyecto: Ficha Técnica"
   - "Edición: Laia Serrano"
+workSectionOrder: 3
 ---
-
-Reel trabajado desde el ritmo, la selección de momentos y la claridad visual para funcionar como pieza vertical de consumo ágil.
-
+En este reel conocemos un poca más a La Plata.
