@@ -29,6 +29,8 @@ heroStats:
     label: en formación
 primaryCtaLabel: Ver trabajos
 secondaryCtaLabel: Contacto
+heroMediaMode: project
+heroProject: codigo-nuevo-rrss
 monitorStatusVideo: REC
 monitorStatusImage: FRAME
 monitorFallback: Selected work
