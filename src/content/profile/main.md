@@ -79,7 +79,7 @@ timelineItems:
     title: Código Nuevo
     text: Edición de vídeo para RRSS y podcasts..
   - date: Formación
-    title: Cine digital, DaVinci Resolve y VFX
+    title: Cine digital, guion y VFX
     text: SAE Institute Barcelona, certificaciones Blackmagic Design y
       especialización VFX en curso.
 contactEyebrow: Contacto
