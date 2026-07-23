@@ -8,9 +8,8 @@ title: Publicidad ARPÍAS
 client: códigonuevo
 year: 2024
 category: Marca
-format: Reel | 9:16
-summary: Publicidad para ARPÍAS. En este vídeo mostramos los servicios que
-  ofrece la marca.
+format: 9:16
+summary: Publicidad
 thumbnail: /uploads/codigo-nuevo-rrss.svg
 workSectionSummary: Edición de entrevistas, podcasts y clips sociales con ritmo
   de consumo digital, piezas largas y derivados para redes.
@@ -24,9 +23,7 @@ videoGallery:
   - title: Corte social 03
     videoUrl: https://res.cloudinary.com/dzhpzwfkq/video/upload/q_auto/v1781618309/a6tlkevub0bomkuiwqqx.mp4
 services: []
-credits:
-  - "Cliente: Código Nuevo"
-  - "Edición: Laia Serrano"
+credits: []
 workSectionOrder: 1
 ---
 Publicidad para ARPÍAS. En este vídeo mostramos los servicios que ofrece la marca.
