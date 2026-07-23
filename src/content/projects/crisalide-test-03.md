@@ -8,7 +8,7 @@ title: Videoreel Podcasts
 client: códigonuevo
 year: 2026
 category: Podcast
-format: Reel vertical / 9:16
+format: 16:9
 summary: Pieza de prueba para visualizar el bloque de Crisàlide con más
   contenido en el carrusel.
 thumbnail: ""
