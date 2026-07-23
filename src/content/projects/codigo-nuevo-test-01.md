@@ -17,9 +17,7 @@ role: Editora
 videoUrl: https://res.cloudinary.com/dzhpzwfkq/video/upload/q_auto/v1781618343/fmb858zobgt5hfzwqz7x.mp4
 videoGallery: []
 services: []
-credits:
-  - "Cliente: Código Nuevo"
-  - "Edición: Laia Serrano"
+credits: []
 workSectionOrder: 1
 ---
 C. Tangana y a Yerai Cortés desvelan su Spotify wrapped.
