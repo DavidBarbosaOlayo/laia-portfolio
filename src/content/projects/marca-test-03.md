@@ -4,7 +4,7 @@ featured: false
 order: 5
 workPlacement: vertical
 workSection: codigo-nuevo
-title: Reel Marca 03
+title: Ficha técnica - Merina Gris
 client: códigonuevo
 year: 2025
 category: Marca
