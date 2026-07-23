@@ -80,7 +80,7 @@ timelineItems:
     text: Edición de vídeo para RRSS y podcasts..
   - date: Formación
     title: Cine digital, guion y VFX
-    text: SAE Institute Barcelona, certificaciones Blackmagic Design y
+    text: SAE Institute Barcelona, Showrunners, certificaciones Blackmagic Design y
       especialización VFX en curso.
 contactEyebrow: Contacto
 linkedinLabel: LinkedIn ↗
