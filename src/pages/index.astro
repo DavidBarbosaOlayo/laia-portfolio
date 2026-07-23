@@ -35,6 +35,12 @@ function isDirectVideo(url?: string) {
     return false;
   }
 
+  // Cloudinary sirve el video con transformaciones por delante y no siempre
+  // deja la extension al final, asi que se reconoce por la ruta /video/upload/.
+  if (/res\.cloudinary\.com\/[^/]+\/video\/upload\//i.test(url)) {
+    return true;
+  }
+
   return /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(url) || url.startsWith('/uploads/');
 }
 

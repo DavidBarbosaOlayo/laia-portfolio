@@ -8,6 +8,18 @@ local_backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+# Los videos van a Cloudinary, no al repo: subirlos por git-gateway falla con
+# "API_ERROR: Validation Failed" (422 de GitHub) en cuanto pesan un poco.
+media_library:
+  name: cloudinary
+  output_filename_only: false
+  config:
+    cloud_name: dzhpzwfkq
+    api_key: "758996655768256"
+    default_transformations:
+      - - fetch_format: auto
+          quality: auto
+
 slug:
   encoding: "ascii"
   clean_accents: true
@@ -101,7 +113,7 @@ collections:
             widget: "file"
             required: false
             choose_url: true
-            hint: "Solo se usa en el modo 'Un video propio'. Sube un archivo nuevo, reutiliza uno ya subido desde la biblioteca de medios, o pega una URL directa. IMPORTANTE: tiene que acabar en .mp4 .webm .mov o .m4v; los enlaces de YouTube y Vimeo NO se reproducen aqui."
+            hint: "Solo se usa en el modo 'Un video propio'. El boton abre tu biblioteca de Cloudinary: sube el video ahi mismo o elige uno ya subido. IMPORTANTE: aqui los enlaces de YouTube y Vimeo NO se reproducen, tiene que ser un video de Cloudinary o una URL directa .mp4 .webm .mov o .m4v."
           - label: "PORTADA - imagen de respaldo"
             name: "heroPoster"
             widget: "image"
@@ -377,13 +389,13 @@ collections:
         widget: "image"
         required: false
         choose_url: true
-        hint: "Puedes subir una imagen al proyecto o pegar una URL externa."
+        hint: "El boton abre tu biblioteca de Cloudinary: puedes subir la imagen ahi mismo o elegir una ya subida. Tambien puedes pegar una URL externa."
       - label: "Video"
         name: "videoUrl"
         widget: "file"
         required: false
         choose_url: true
-        hint: "Puedes subir un video al proyecto o pegar una URL externa de Cloudinary, Vimeo, Mux o YouTube."
+        hint: "El boton abre tu biblioteca de Cloudinary: sube el video ahi mismo o elige uno ya subido. Tambien puedes pegar una URL de Vimeo, Mux o YouTube. No subas videos al repositorio: fallan al guardar."
       - label: "Videos adicionales"
         name: "videoGallery"
         widget: "list"
@@ -398,7 +410,7 @@ collections:
             name: "videoUrl"
             widget: "file"
             choose_url: true
-            hint: "Puedes subir un video al proyecto o pegar una URL externa."
+            hint: "El boton abre tu biblioteca de Cloudinary: sube el video ahi mismo o elige uno ya subido."
       - label: "Servicios"
         name: "services"
         widget: "list"

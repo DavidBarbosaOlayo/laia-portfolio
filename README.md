@@ -20,13 +20,15 @@ Si el admin muestra `Login with GitHub`, normalmente falta el proxy local. Para 
 
 ## Subida de archivos
 
-El admin sube imagenes y videos a `public/uploads` y guarda rutas tipo `/uploads/archivo.mp4`.
+El admin usa la **biblioteca de Cloudinary** (`media_library: cloudinary` en `config.yml`, cloud `dzhpzwfkq`). Al pulsar el boton de medios se abre el widget de Cloudinary: se puede subir ahi mismo o elegir un asset ya subido, y se guarda la URL completa con `f_auto,q_auto`. Los archivos no pasan por el repo.
 
-El proxy local (`scripts/cms-proxy.mjs`) acepta archivos grandes (hasta ~700 MB reales; el `decap-server` original cortaba en ~35 MB y mostraba el error `"<!DOCTYPE ..." is not valid JSON`).
+La `api_key` del config es publica por diseño; la que nunca debe entrar al repo es el *api secret*.
 
-Esto sirve para probar y para archivos ligeros. Para videos finales pesados, conviene subirlos fuera del repo, por ejemplo a Cloudinary, Vimeo o Mux, y pegar la URL/embed en el campo de video del proyecto.
+**No subir videos al repositorio.** En produccion el CMS commitea via git-gateway, y GitHub rechaza los archivos grandes con un 422 que Decap muestra como `Failed to persist entry: API_ERROR: Validation Failed`. Sintoma tipico: modificar una entrada existente funciona, pero crear una nueva con video falla. Restos de esa epoca: `public/uploads/caminata-1.mov` (17 MB, huerfano).
 
-No se usa el selector de biblioteca de Cloudinary dentro de Decap. Ese selector solo permite elegir assets que ya existen en Cloudinary y puede aparecer vacio si la cuenta no tiene assets o permisos de subida; por eso el CMS usa la subida normal de Decap y deja Cloudinary como URL externa.
+El proxy local (`scripts/cms-proxy.mjs`) acepta archivos grandes (hasta ~700 MB reales; el `decap-server` original cortaba en ~35 MB y mostraba el error `"<!DOCTYPE ..." is not valid JSON`), pero **eso es solo en local**: no hay equivalente en produccion.
+
+Historico: la integracion de Cloudinary se quito el 2026-07-04 (commit `21d2c58`) porque el selector le aparecia vacio a la editora. La causa real eran los permisos de su usuario en Cloudinary, no el widget. Se restauro al darle rol Master admin.
 
 ## Produccion
 
