@@ -1,22 +1,24 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+interface HeroMedia {
+  kind: 'video' | 'image' | 'empty';
+  src?: string;
+  href?: string;
+  title?: string;
+  subtitle?: string;
+}
+
 interface Props {
-  featured?: CollectionEntry<'projects'>;
+  media: HeroMedia;
   profile: CollectionEntry<'profile'>['data'];
 }
 
-const { featured, profile } = Astro.props;
+const { media, profile } = Astro.props;
 
-function isDirectVideo(url?: string) {
-  if (!url || /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url)) {
-    return false;
-  }
-
-  return /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(url) || url.startsWith('/uploads/');
-}
-
-const featuredHasDirectVideo = Boolean(featured && isDirectVideo(featured.data.videoUrl));
+// Sin enlace el monitor sigue siendo el mismo bloque, pero no clicable.
+const Stage = media.href ? 'a' : 'div';
+const hasCaption = Boolean(media.title || media.subtitle);
 const [firstName, ...restName] = profile.name.split(' ');
 const lastName = restName.join(' ');
 const heroStats = profile.heroStats.length > 0
@@ -58,28 +60,30 @@ const heroStats = profile.heroStats.length > 0
       <div class="monitor-topbar">
         <span class="rec-label">
           <i class="rec-dot"></i>
-          {featuredHasDirectVideo ? profile.monitorStatusVideo : profile.monitorStatusImage}
+          {media.kind === 'video' ? profile.monitorStatusVideo : profile.monitorStatusImage}
         </span>
         <span data-timecode>00:00:00:00</span>
       </div>
 
-      {
-        featured && (
-          <a class="monitor-stage" href={`/work/${featured.slug}/`} aria-label={`Abrir ${featured.data.title}`}>
-            {featuredHasDirectVideo ? (
-              <video src={featured.data.videoUrl} autoplay loop muted playsinline preload="auto" />
-            ) : featured.data.thumbnail ? (
-              <img src={featured.data.thumbnail} alt="" loading="eager" />
-            ) : (
-              <span class="monitor-fallback">{profile.monitorFallback}</span>
-            )}
-            <span class="monitor-caption">
-              <strong>{featured.data.title}</strong>
-              <span>{featured.data.client} · {featured.data.format}</span>
-            </span>
-          </a>
-        )
-      }
+      <Stage
+        class="monitor-stage"
+        href={media.href}
+        aria-label={media.href && media.title ? `Abrir ${media.title}` : undefined}
+      >
+        {media.kind === 'video' ? (
+          <video src={media.src} autoplay loop muted playsinline preload="auto" />
+        ) : media.kind === 'image' ? (
+          <img src={media.src} alt="" loading="eager" />
+        ) : (
+          <span class="monitor-fallback">{profile.monitorFallback}</span>
+        )}
+        {hasCaption && (
+          <span class="monitor-caption">
+            {media.title && <strong>{media.title}</strong>}
+            {media.subtitle && <span>{media.subtitle}</span>}
+          </span>
+        )}
+      </Stage>
 
       <div class="monitor-bottombar">
         <span>{profile.monitorBottomLeft}</span>

@@ -77,6 +77,52 @@ collections:
           - label: "Hero - boton secundario"
             name: "secondaryCtaLabel"
             widget: "string"
+          - label: "PORTADA - de donde sale el video grande"
+            name: "heroMediaMode"
+            widget: "select"
+            default: "project"
+            hint: "Decide que se ve en el monitor vertical de la portada, al lado del nombre. Segun lo que elijas aqui se usa el campo 'proyecto' o el campo 'video propio' de abajo; el otro se ignora."
+            options:
+              - label: "Un proyecto del portfolio"
+                value: "project"
+              - label: "Un video propio solo para la portada"
+                value: "custom"
+          - label: "PORTADA - proyecto"
+            name: "heroProject"
+            widget: "relation"
+            collection: "projects"
+            required: false
+            search_fields: ["title", "client"]
+            value_field: "{{slug}}"
+            display_fields: ["title", "client"]
+            hint: "Solo se usa en el modo 'Un proyecto del portfolio'. Se muestra el video de ese proyecto y el monitor enlaza a su pagina. Si lo dejas vacio se usa el primer proyecto por orden."
+          - label: "PORTADA - video propio"
+            name: "heroVideoUrl"
+            widget: "file"
+            required: false
+            choose_url: true
+            hint: "Solo se usa en el modo 'Un video propio'. Sube un archivo nuevo, reutiliza uno ya subido desde la biblioteca de medios, o pega una URL directa. IMPORTANTE: tiene que acabar en .mp4 .webm .mov o .m4v; los enlaces de YouTube y Vimeo NO se reproducen aqui."
+          - label: "PORTADA - imagen de respaldo"
+            name: "heroPoster"
+            widget: "image"
+            required: false
+            choose_url: true
+            hint: "Opcional, solo para el modo 'Un video propio': se muestra si no hay video valido."
+          - label: "PORTADA - titulo del rotulo"
+            name: "heroCustomTitle"
+            widget: "string"
+            required: false
+            hint: "Opcional, solo para el modo 'Un video propio': texto en negrita abajo del monitor. Vacio = sin rotulo."
+          - label: "PORTADA - subtitulo del rotulo"
+            name: "heroCustomSubtitle"
+            widget: "string"
+            required: false
+            hint: "Opcional, solo para el modo 'Un video propio': segunda linea del rotulo."
+          - label: "PORTADA - enlace al pulsar"
+            name: "heroCustomLink"
+            widget: "string"
+            required: false
+            hint: "Opcional, solo para el modo 'Un video propio': a donde lleva al hacer clic. Vacio = el monitor no es clicable."
           - label: "Monitor - estado con video"
             name: "monitorStatusVideo"
             widget: "string"
@@ -268,6 +314,7 @@ collections:
         name: "featured"
         widget: "boolean"
         default: false
+        hint: "Solo pinta la etiqueta 'Destacado' sobre la miniatura en la lista de trabajos. NO decide el video de la portada: eso se elige en Perfil > PORTADA."
       - label: "Orden"
         name: "order"
         widget: "number"

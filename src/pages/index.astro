@@ -11,6 +11,8 @@ if (!profile) {
   throw new Error('Missing profile content: src/content/profile/main.md');
 }
 
+const profileData = profile.data;
+
 const projects = (await getCollection('projects'))
   .filter((project) => project.data.published)
   .sort((a, b) => a.data.order - b.data.order);
@@ -20,7 +22,72 @@ const workSections = (await getCollection('workSections'))
   .sort((a, b) => a.data.order - b.data.order)
   .map((section) => section.data);
 
-const featured = projects.find((project) => project.data.featured) ?? projects[0];
+interface HeroMedia {
+  kind: 'video' | 'image' | 'empty';
+  src?: string;
+  href?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+function isDirectVideo(url?: string) {
+  if (!url || /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url)) {
+    return false;
+  }
+
+  return /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(url) || url.startsWith('/uploads/');
+}
+
+// El video grande de la portada se elige desde Perfil: o un proyecto del
+// portfolio, o un archivo propio subido solo para ese hueco.
+function resolveHeroMedia(): HeroMedia {
+  if (profileData.heroMediaMode === 'custom') {
+    const caption = {
+      href: profileData.heroCustomLink?.trim() || undefined,
+      title: profileData.heroCustomTitle?.trim() || undefined,
+      subtitle: profileData.heroCustomSubtitle?.trim() || undefined,
+    };
+    const video = profileData.heroVideoUrl?.trim();
+    const poster = profileData.heroPoster?.trim();
+
+    if (isDirectVideo(video)) {
+      return { kind: 'video', src: video, ...caption };
+    }
+
+    if (poster) {
+      return { kind: 'image', src: poster, ...caption };
+    }
+
+    return { kind: 'empty', ...caption };
+  }
+
+  // Si el proyecto elegido se despublica o se borra, cae al primero por orden
+  // en lugar de dejar la portada en negro.
+  const chosen = profileData.heroProject?.trim();
+  const project = projects.find((entry) => entry.slug === chosen) ?? projects[0];
+
+  if (!project) {
+    return { kind: 'empty' };
+  }
+
+  const caption = {
+    href: `/work/${project.slug}/`,
+    title: project.data.title,
+    subtitle: `${project.data.client} · ${project.data.format}`,
+  };
+
+  if (isDirectVideo(project.data.videoUrl)) {
+    return { kind: 'video', src: project.data.videoUrl, ...caption };
+  }
+
+  if (project.data.thumbnail) {
+    return { kind: 'image', src: project.data.thumbnail, ...caption };
+  }
+
+  return { kind: 'empty', ...caption };
+}
+
+const heroMedia = resolveHeroMedia();
 
 const workItems = projects.map((project) => ({
   ...project.data,
@@ -46,7 +113,7 @@ const marqueeLoopItems = Array.from({ length: 4 }, () => marqueeItems).flat();
   />
   <main>
     <section class="home-hero" data-monitor-frame-rate={profile.data.monitorFrameRate}>
-      <Hero featured={featured} profile={profile.data} />
+      <Hero media={heroMedia} profile={profile.data} />
 
       <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
