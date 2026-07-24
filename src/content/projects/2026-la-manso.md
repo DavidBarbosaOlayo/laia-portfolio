@@ -3,7 +3,7 @@ published: true
 featured: false
 order: 10
 workPlacement: vertical
-workSection: codigo-nuevo
+workSection: Sí a tot
 title: La Manso
 client: somEVA
 year: 2026
