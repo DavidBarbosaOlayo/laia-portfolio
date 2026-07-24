@@ -20,15 +20,15 @@ Si el admin muestra `Login with GitHub`, normalmente falta el proxy local. Para 
 
 ## Subida de archivos
 
-El admin usa la **biblioteca de Cloudinary** (`media_library: cloudinary` en `config.yml`, cloud `dzhpzwfkq`). Al pulsar el boton de medios se abre el widget de Cloudinary: se puede subir ahi mismo o elegir un asset ya subido, y se guarda la URL completa con `f_auto,q_auto`. Los archivos no pasan por el repo.
+El admin usa la **biblioteca por defecto de Decap** (`media_folder: public/uploads`): al pulsar el boton de medios la editora ve y selecciona lo que ya hay subido, y puede subir archivos ligeros. Los campos de imagen/video tienen `choose_url: true`, asi que ademas se puede **pegar una URL externa** ("Insert from URL").
 
-La `api_key` del config es publica por diseño; la que nunca debe entrar al repo es el *api secret*.
+**No subir videos pesados al repositorio.** En produccion el CMS commitea via git-gateway, y GitHub rechaza los archivos grandes con un 422 que Decap muestra como `Failed to persist entry: API_ERROR: Validation Failed`. Sintoma tipico: modificar una entrada existente funciona, pero crear una nueva con video pesado falla. Restos de esa epoca: `public/uploads/caminata-1.mov` (17 MB, huerfano).
 
-**No subir videos al repositorio.** En produccion el CMS commitea via git-gateway, y GitHub rechaza los archivos grandes con un 422 que Decap muestra como `Failed to persist entry: API_ERROR: Validation Failed`. Sintoma tipico: modificar una entrada existente funciona, pero crear una nueva con video falla. Restos de esa epoca: `public/uploads/caminata-1.mov` (17 MB, huerfano).
+**Flujo para videos:** subir el video a Cloudinary (cloud `dzhpzwfkq`) por fuera del CMS, copiar la URL y pegarla en el campo Video con "Insert from URL". No es automatico: Cloudinary y el CMS son cosas separadas, el vinculo es la URL. Los videos actuales del sitio ya son URLs de Cloudinary servidas con `q_auto`.
 
 El proxy local (`scripts/cms-proxy.mjs`) acepta archivos grandes (hasta ~700 MB reales; el `decap-server` original cortaba en ~35 MB y mostraba el error `"<!DOCTYPE ..." is not valid JSON`), pero **eso es solo en local**: no hay equivalente en produccion.
 
-Historico: la integracion de Cloudinary se quito el 2026-07-04 (commit `21d2c58`) porque el selector le aparecia vacio a la editora. La causa real eran los permisos de su usuario en Cloudinary, no el widget. Se restauro al darle rol Master admin.
+Historico del widget de Cloudinary (`media_library: cloudinary`): se quito el 2026-07-04 (`21d2c58`) porque el selector aparecia vacio a la editora; se restauro el 2026-07-24 (`357556d`) al darle rol Master admin; y se volvio a quitar poco despues porque **seguia sin ver ni poder subir** (permisos/sesion de su usuario, no reproducible en remoto) y ademas le quitaba la biblioteca por defecto que si le funcionaba para seleccionar lo existente. Si se reintenta, la via robusta es el Upload Widget de Cloudinary con preset unsigned (no depende de la sesion del usuario), que requiere integracion a medida via `CMS.registerMediaLibrary`.
 
 ## Produccion
 
