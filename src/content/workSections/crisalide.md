@@ -1,7 +1,7 @@
 ---
 published: true
-id: Catalunya Radio
+id: Sí a tot
 title: Catalunya Radio
 order: 2
-summary: Contenidos digitales para el programa de radio La tarda de Catalunya radio.
+summary: "Contenidos digitales para el programa de YouTube Sí a tot. "
 ---
